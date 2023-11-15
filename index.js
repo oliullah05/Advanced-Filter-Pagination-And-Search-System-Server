@@ -30,30 +30,23 @@ const client = new MongoClient(uri, {
 async function run() {
   try {
     // Connect the client to the server	(optional starting in v4.7)
-    await client.connect();
+    client.connect((error) => {
+      if (error) {
+        console.log(error);
+        return;
+      }
+    });
 
-  const moviesCollection = client.db("Advanced-Filter-Pagination-And-Search").collection("moviesData");
+    const moviesCollection = client.db("Advanced-Filter-Pagination-And-Search").collection("moviesData");
 
-    app.get("/",(req,res)=>{
-        res.send(`server is running`)
+    app.get("/", (req, res) => {
+      res.send(`server is running`)
     })
 
-    app.get("/movies",async(req,res)=>{
-       const result = await moviesCollection.find().toArray();
-       res.send(result)
+    app.get("/movies", async (req, res) => {
+      const result = await moviesCollection.find().toArray();
+      res.send(result)
     })
-    
-    
-    
-
-
-
-
-
-
-
-
-
 
 
 
@@ -103,6 +96,6 @@ run().catch(console.dir);
 
 
 
-app.listen(port,()=>{
-    console.log(`server is running on ${port}`);
+app.listen(port, () => {
+  console.log(`server is running on ${port}`);
 })
