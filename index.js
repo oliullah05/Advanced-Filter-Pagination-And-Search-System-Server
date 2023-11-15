@@ -48,8 +48,17 @@ async function run() {
       res.send(result)
     })
 
+   app.get("/count",async(req,res)=>{
+    const result = await moviesCollection.estimatedDocumentCount()
+    
+    res.send({totalData:result})
+   })
 
-
+//    app.get("/count", async (req, res) => {
+//     const result = await moviesCollection.estimatedDocumentCount();
+//     console.log(result);
+//     res.send(result);
+// });
 
 
 
